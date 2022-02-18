@@ -1,0 +1,63 @@
+body {
+  background-image: url("bg4.jpg"); 
+  background-color: #f2f2f2; 
+  color: #666;
+}
+
+header {
+  border: 2px dashed gray;
+  background-color: #f7f0f6;
+  color: deeppink;
+  font-family: 'Amatic SC', cursive;
+  font-size: 110%;
+  padding: 20px;
+  margin: 10px auto;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+}
+
+div { 
+  background-color: #f7f5f5; 
+  width: 80%; 
+  border: 1px dashed black; 
+  margin: 20px auto; 
+  padding: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+}
+
+img {
+  border-radius: 50%;
+}
+
+hr {
+  border-top: 1px dashed #a31717;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: gray;
+  border: 2px dashed gray;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.active {
+  background-color: deeppink;
+}
