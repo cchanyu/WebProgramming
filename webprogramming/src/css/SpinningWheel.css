@@ -83,7 +83,7 @@ body {
 .wheel--container .wheel--spinner .wheel--number span {
     position: relative;
     transform: rotate(-45deg);
-    font-size: 2em;
+    font-size: 1.1em;
     font-weight: 700;
     color: #fff;
     text-shadow: 3px 5px 2px rgba(0, 0, 0, .15);
@@ -101,6 +101,6 @@ body {
 .wheel--container .wheel--pointer {
     position: absolute;
     top: 0;
-    width: 1px;
-    height: 100px;
+    width: 3px;
+    height: 1px;
 }

@@ -1,36 +1,67 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../css/SpinningWheel.css';
 
 const SpinningWheel = () => {
-    const wheelRef = useRef(null);
-    const pointerRef = useRef(null);
     const [WheelSpinner, setWheelSpinner] = useState({
         transform: 0
     });
+    const [WheelText, setWheelText] = useState({
+        content: 'Click to Spin'
+    })
+    const pointerRef = useRef(null);
+
+    const elementid = [1, 2, 3, 4, 5, 6, 7, 8];
+    const refs = useRef([]);
+    useEffect(() => {
+        console.log(refs)
+    });
+
+    const colors = ['db7093', '20b2aa', 'd63e92', 'daa520', 'ff340f', 'ff7f50', '3cb371', '4169e1'];
+    const elements = generateElementsArray(['iPod', 'iPhone', 'iMac', 'MacBook', 'AirPods', 'iWatch', 'Mac Studio', 'Apple TV']);
+
+    function generateElementsArray(names) {
+        return names.map((name, index) => ({
+          id: (index + 1),
+          ref: refs[index + 1],
+          style: {'--i':`${(index + 1)}`, '--clr':`#${colors[index]}`},
+          content: name,
+        }));
+    }
 
     const onClickSpin = () => {
         let wheel_value = (Math.random() * 8).toFixed(2);
         setWheelSpinner({ transform: `rotate(${wheel_value}turn)` });
-        console.log("wheel val: ", wheel_value);
+        setWheelText({ content: 'Spinning' });
+        console.log("spin value: ", wheel_value);
 
-        const myWheelRef = wheelRef.current;
-        const myPointerRef = pointerRef.current;
-        console.log(myWheelRef);
-        console.log(myPointerRef);
+        let highestRefTop = 9999;
+        let highestRefID = null;
+        let highestRefName = null;
 
-        let wheel_spinner = document.querySelectorAll([".wheel--spinner"]);
-        let wheel_pointer = document.querySelectorAll([".wheel--pointer"]);
-        let answer = areElementsTouching(myWheelRef, myPointerRef);
-        console.log(answer);
+        setTimeout(function(){
+            for (const i of elementid) {
+                let myWheelRefObj = refs.current[i];
+                let myWheelRefTop = myWheelRefObj.getBoundingClientRect().top;
+                let myWheelRefID = i;
+                let myWheelRefName = myWheelRefObj.outerText;
+
+                if (myWheelRefTop < highestRefTop) {
+                    highestRefTop = myWheelRefTop;
+                    highestRefID = myWheelRefID;
+                    highestRefName = myWheelRefName;
+                    console.log('new king: ', highestRefName);
+                }
+                console.log(myWheelRefObj);
+            }
+
+            winnerAnnounced(highestRefID, highestRefName);            
+        }, 6000);
     }
 
-    function areElementsTouching(wheel_spinner, wheel_pointer) {
-        const rect1 = wheel_spinner.getBoundingClientRect();
-        const rect2 = wheel_pointer.getBoundingClientRect();
-        return !(rect1.right < rect2.left || 
-                 rect1.left > rect2.right || 
-                 rect1.bottom < rect2.top || 
-                 rect1.top > rect2.bottom);
+    function winnerAnnounced(highestRefID, highestRefName) {
+        setWheelText({ content: 'Winner is: ' + highestRefName });
+        console.log('won item name: ' + highestRefName);
+        console.log('won item index: ' + highestRefID);
     }
 
     return (
@@ -38,16 +69,13 @@ const SpinningWheel = () => {
             <div className='wheel--pointer' ref={pointerRef}></div>
             <div className='wheel--button' onClick={() => onClickSpin()}>Spin</div>
             <div className='wheel--spinner' style={WheelSpinner}>
-                <div className="wheel--number" style={{'--i':'1', '--clr':'#db7093'}} ref={wheelRef}><span>1</span></div>
-                <div className="wheel--number" style={{'--i':'2', '--clr':'#20b2aa'}} ref={wheelRef}><span>2</span></div>
-                <div className="wheel--number" style={{'--i':'3', '--clr':'#d63e92'}} ref={wheelRef}><span>3</span></div>
-                <div className="wheel--number" style={{'--i':'4', '--clr':'#daa520'}} ref={wheelRef}><span>4</span></div>
-                <div className="wheel--number" style={{'--i':'5', '--clr':'#ff340f'}} ref={wheelRef}><span>5</span></div>
-                <div className="wheel--number" style={{'--i':'6', '--clr':'#ff7f50'}} ref={wheelRef}><span>6</span></div>
-                <div className="wheel--number" style={{'--i':'7', '--clr':'#3cb371'}} ref={wheelRef}><span>7</span></div>
-                <div className="wheel--number" style={{'--i':'8', '--clr':'#4169e1'}} ref={wheelRef}><span>8</span></div>
+                {elements.map((element) => (
+                    <div className='wheel--number' key={element.id} ref={(el) => (refs.current[element.id] = el)} style={element.style}>
+                        <span>{element.content}</span>
+                    </div>
+                ))}
             </div>
-            <div className='wheel--text'>You've won: some value</div>
+            <div className='wheel--text' style={WheelText}>{ WheelText.content }</div>
         </div>
     )
 }
