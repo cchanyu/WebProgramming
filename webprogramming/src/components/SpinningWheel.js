@@ -6,9 +6,9 @@ const SpinningWheel = () => {
         transform: 0
     });
     const [WheelText, setWheelText] = useState({
-        content: 'Click to Spin'
+        content: 'Click to Spin',
+        isDisabled: false
     })
-    const pointerRef = useRef(null);
 
     const elementid = [1, 2, 3, 4, 5, 6, 7, 8];
     const refs = useRef([]);
@@ -31,7 +31,7 @@ const SpinningWheel = () => {
     const onClickSpin = () => {
         let wheel_value = (Math.random() * 8).toFixed(2);
         setWheelSpinner({ transform: `rotate(${wheel_value}turn)` });
-        setWheelText({ content: 'Spinning' });
+        setWheelText({ content: 'Spinning', isDisabled: true });
         console.log("spin value: ", wheel_value);
 
         let highestRefTop = 9999;
@@ -54,20 +54,19 @@ const SpinningWheel = () => {
                 console.log(myWheelRefObj);
             }
 
-            winnerAnnounced(highestRefID, highestRefName);            
+            winnerAnnounced(highestRefID, highestRefName);
         }, 6000);
     }
 
     function winnerAnnounced(highestRefID, highestRefName) {
-        setWheelText({ content: 'Winner is: ' + highestRefName });
+        setWheelText({ content: 'Winner is: ' + highestRefName, isDisabled: false });
         console.log('won item name: ' + highestRefName);
         console.log('won item index: ' + highestRefID);
     }
 
     return (
         <div className='wheel--container'>
-            <div className='wheel--pointer' ref={pointerRef}></div>
-            <div className='wheel--button' onClick={() => onClickSpin()}>Spin</div>
+            <button className='wheel--button' onClick={() => onClickSpin()} disabled={WheelText.isDisabled}>Spin</button>
             <div className='wheel--spinner' style={WheelSpinner}>
                 {elements.map((element) => (
                     <div className='wheel--number' key={element.id} ref={(el) => (refs.current[element.id] = el)} style={element.style}>

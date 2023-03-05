@@ -98,9 +98,8 @@ body {
     color: #fff;
 }
 
-.wheel--container .wheel--pointer {
-    position: absolute;
-    top: 0;
-    width: 3px;
-    height: 1px;
+@keyframes rotate {
+    50% {
+        transform: rotate(1060deg);
+    }
 }
