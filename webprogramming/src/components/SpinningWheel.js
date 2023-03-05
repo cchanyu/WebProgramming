@@ -2,9 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import '../css/SpinningWheel.css';
 
 const SpinningWheel = () => {
-    const [WheelSpinner, setWheelSpinner] = useState({
-        transform: 0
-    });
+    const [WheelValue, setWheelValue] = useState(Math.ceil(Math.random() * (3600 - 1080 + 1)) + 1080);
+    const [WheelSpinner, setWheelSpinner] = useState({transform: 0});
     const [WheelText, setWheelText] = useState({
         content: 'Click to Spin',
         isDisabled: false
@@ -18,7 +17,7 @@ const SpinningWheel = () => {
 
     const colors = ['db7093', '20b2aa', 'd63e92', 'daa520', 'ff340f', 'ff7f50', '3cb371', '4169e1'];
     const elements = generateElementsArray(['iPod', 'iPhone', 'iMac', 'MacBook', 'AirPods', 'iWatch', 'Mac Studio', 'Apple TV']);
-
+    
     function generateElementsArray(names) {
         return names.map((name, index) => ({
           id: (index + 1),
@@ -29,10 +28,10 @@ const SpinningWheel = () => {
     }
 
     const onClickSpin = () => {
-        let wheel_value = (Math.random() * 8).toFixed(2);
-        setWheelSpinner({ transform: `rotate(${wheel_value}turn)` });
+        setWheelSpinner({ transform: `rotate(${WheelValue}deg)` });
         setWheelText({ content: 'Spinning', isDisabled: true });
-        console.log("spin value: ", wheel_value);
+        console.log("spin value: ", WheelValue);
+        setWheelValue( WheelValue + Math.ceil(Math.random() * (3600 - 1080 + 1)) + 1080 ); 
 
         let highestRefTop = 9999;
         let highestRefID = null;
@@ -59,7 +58,7 @@ const SpinningWheel = () => {
     }
 
     function winnerAnnounced(highestRefID, highestRefName) {
-        setWheelText({ content: 'Winner is: ' + highestRefName, isDisabled: false });
+        setWheelText({ content: 'You\'ve won: ' + highestRefName, isDisabled: false });
         console.log('won item name: ' + highestRefName);
         console.log('won item index: ' + highestRefID);
     }
