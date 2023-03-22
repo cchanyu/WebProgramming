@@ -14,8 +14,7 @@ body {
 
 .wheel--container {
     position: relative;
-    width: 500px;
-    height: 500px;
+    height: var(--hh);
     display: flex;
     justify-content: center;
     align-items: center;

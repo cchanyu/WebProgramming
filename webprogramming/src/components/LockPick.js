@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import '../css/LockPick.css';
 
 const LockPick = () => {
+    const [loading, setLoading] = useState(false);
     const [LockUnlock, setLockUnlock] = useState();
 
     const [Lock1Spinner, setLock1Spinner] = useState();
@@ -40,6 +41,7 @@ const LockPick = () => {
     useEffect(() => {
         console.log("Lock Answers:", lock1Ans, lock2Ans);
         document.addEventListener("keydown", keyPress);
+        setLoading(true);
         return () => document.removeEventListener("keydown", keyPress);
     }, [keyPress]);
 
@@ -74,12 +76,12 @@ const LockPick = () => {
         console.log("abs: ", abslock1Pos);
 
         // 1st check: position == answer
-        if (abslock1Pos == lock1Ans) {
+        if (abslock1Pos === lock1Ans) {
             // set it to green
             setLock1Hint({ background: "#ff0000" });
             setTimeout(function(){
                 abslock1Pos = Math.abs(normalizeAngle(lock1Pos));
-                if (abslock1Pos == lock1Ans) {
+                if (abslock1Pos === lock1Ans) {
                     setLock1Hint({ background: "#00ff00" });
                 }
             }, 1000);
@@ -93,11 +95,11 @@ const LockPick = () => {
         let abslock2Pos = Math.abs(normalizeAngle(lock2Pos));
         console.log("abs: ", abslock2Pos);
 
-        if (abslock2Pos == lock2Ans) {
+        if (abslock2Pos === lock2Ans) {
             setLock2Hint({ background: "#ff0000" });
             setTimeout(function(){
                 abslock2Pos = Math.abs(normalizeAngle(lock2Pos));
-                if (abslock2Pos == lock2Ans) {
+                if (abslock2Pos === lock2Ans) {
                     setLock2Hint({ background: "#00ff00" });
                 }
             }, 1000);
@@ -111,12 +113,12 @@ const LockPick = () => {
         let abslock1Pos = Math.abs(normalizeAngle(lock1Pos));
         let abslock2Pos = Math.abs(normalizeAngle(lock2Pos));
 
-        if (abslock1Pos == lock1Ans && abslock2Pos == lock2Ans) {
+        if (abslock1Pos === lock1Ans && abslock2Pos === lock2Ans) {
             setLockUnlock({ background: "#ff0000" });
             setTimeout(function(){
                 abslock1Pos = Math.abs(normalizeAngle(lock1Pos));
                 abslock2Pos = Math.abs(normalizeAngle(lock2Pos));
-                if (abslock1Pos == lock1Ans && abslock2Pos == lock2Ans) {
+                if (abslock1Pos === lock1Ans && abslock2Pos === lock2Ans) {
                     setLockUnlock({ background: "#00ff00" });
                 }
             }, 5000);
@@ -127,10 +129,14 @@ const LockPick = () => {
 
     return (
         <div className='lock--container'>
-            <div className='lock--spinner1' style={Lock1Spinner}></div>
-            <div className='lock--spinner2' style={Lock2Spinner}></div>
-            <div className='lock--hint1' style={Lock1Hint}></div>
-            <div className='lock--hint2' style={Lock2Hint}></div>
+            <div className='lock--group2'>
+                <div className='lock--spinner2' style={Lock2Spinner}></div>
+                <div className='lock--hint2' style={Lock2Hint}></div>
+            </div>
+            <div className='lock--group1'>
+                <div className='lock--spinner1' style={Lock1Spinner}></div>
+                <div className='lock--hint1' style={Lock1Hint}></div>
+            </div>
             <div className='lock--unlock' style={LockUnlock}></div>
             <button className='lock--button' onClick={() => onClickReset()}>Reset</button>
         </div>
