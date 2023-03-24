@@ -1,36 +1,36 @@
 .lock--container {
-    position: relative;
-    width: 500px;
-    height: 500px;
     display: flex;
+    flex-direction: column;
+    height: var(--hh);
     justify-content: center;
     align-items: center;
 }
 
 .lock--spinner1 {
     content: '';
-    position: absolute;
-    top: 150px;
+    position: relative;
     width: 20px;
     height: 30px;
+    margin: 1rem;
     background: #fff;
     clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
 }
 
 .lock--spinner2 {
     content: '';
-    position: absolute;
-    top: 100px;
+    position: relative;
     width: 20px;
     height: 30px;
+    margin: 1rem;
     background: #fff;
     clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
 }
 
 .lock--button {
-    position: absolute;
+    position: relative;
     width: 100px;
     height: 50px;
+    margin: 1rem;
     background-color: white;
     border-radius: 10%;
 
@@ -43,4 +43,36 @@
     border: 4px solid rgba(0, 0, 0, .75);
     cursor: pointer;
     user-select: none;
+}
+
+.lock--hint1 {
+    content: '';
+    position: relative;
+    width: 20px;
+    height: 30px;
+    margin: 1rem;
+    background: #fff;
+}
+
+.lock--hint2 {
+    content: '';
+    position: relative;
+    width: 20px;
+    height: 30px;
+    margin: 1rem;
+    background: #fff;
+}
+
+.lock--unlock {
+    content: '';
+    position: relative;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 1rem;
+    background: #fff;
+}
+
+.lock--group1, .lock--group2 {
+    display: flex;
 }
