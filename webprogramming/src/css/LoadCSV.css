@@ -1,0 +1,9 @@
+.loadcsv {
+    width: 100vw;
+}
+
+.loadcsv-table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
