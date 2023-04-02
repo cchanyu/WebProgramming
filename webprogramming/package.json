@@ -1,5 +1,6 @@
 {
-  "name": "ccartportfolio",
+  "homepage": "https://cchanyu.github.io/WebProgramming",
+  "name": "webprogramming",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
