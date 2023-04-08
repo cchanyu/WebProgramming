@@ -12,17 +12,17 @@ const GrabUser = () => {
     // https://geolocation-db.com/json/
 
     useEffect(() => {
-        fetch("https://geolocation-db.com/json/")
-        .then(res => res.json())
-        .then((res) => {
-            setIsLoaded(true);
-            setItems(res);
-            setIpv4(res.IPv4);
-        },
-        (error) => {
-            setIsLoaded(true);
-            setError(error);
-        })
+        // fetch("https://geolocation-db.com/json/")
+        // .then(res => res.json())
+        // .then((res) => {
+        //     setIsLoaded(true);
+        //     setItems(res);
+        //     setIpv4(res.IPv4);
+        // },
+        // (error) => {
+        //     setIsLoaded(true);
+        //     setError(error);
+        // })
     })
 
     return (
